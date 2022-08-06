@@ -1,15 +1,22 @@
-# Basic Sample Hardhat Project
+# Talent Musica 
 
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, a sample script that deploys that contract, and an example of a task implementation, which simply lists the available accounts.
+## Introduction
+This project is an EthGlobal Metabolism Hackathon sponsored by Zora. The projects seeks to create an onchain music Dapp where young mujsic talents can upload theior creation and mint it to the marketplace as Video NFTs. If users like the music, such artistes can be contatcted on their twitter handle.
 
-Try running some of the following tasks:
+## Web 3.0 technologies Used
 
-```shell
-npx hardhat accounts
-npx hardhat compile
-npx hardhat clean
-npx hardhat test
-npx hardhat node
-node scripts/sample-script.js
-npx hardhat help
-```
+Frontend: vite + react.js, postcss, tailwindcss, 
+web3 technologies: IPFS/filecoin, coinbase wallet, , Wallet connect, LivePeer, Lit Protocol, Zora
+Backend: Solidity, Node.js
+
+## Demo / Live Links
+Live Dapp - https://talentmusica.vercel.app/
+
+Youtube Url: 
+
+Deployed to Polygon Mumbai: 0x56805DB034dc3675ae363ef7bD6FDA7714b6f19B
+
+
+## Connect with me and send me a mail
+
+stay connected on twitter @holyaustin
