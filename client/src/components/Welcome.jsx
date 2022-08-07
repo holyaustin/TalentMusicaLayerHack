@@ -61,12 +61,12 @@ const Welcome = () => {
   return (
     <div className="flex w-full mf:flex-row flex-col justify-center items-center bg-gray-100">
       <div className="flex mf:flex-row flex-col items-start justify-between md:p-20 px-4">
-        <div className="flex flex-1 justify-start items-start flex-col mf:mr-10 ">
+        <div className="flex flex-1 justify-start items-start flex-col mf:mr-10 font-bold">
           <h1 className="text-5xl sm:text-7xl text-red-700 font-semibold">
             Talent Musica <br />
           </h1><br />
-          <p className="text-left mt-1 text-blue-700 font-light md:w-10/12 w-11/12 text-2xl ">
-            Onchain Music Talent Hunt <br />.. Where Blockchain meets New Music Talents
+          <p className="text-left mt-1 text-blue-700 font-light md:w-10/12 w-11/12 text-2xl font-black">
+            Onchain Music Talent Hunt <br />...where Blockchain meets New Music Talents
           </p><br />
           <div className="md:flex-[0.8] flex-initial justify-left items-center">
 
@@ -93,6 +93,9 @@ const Welcome = () => {
         </div>
       </div>
       <div className="sm:flex-[1.2] lg:flex-[1.9]flex-initial justify-left items-center">
+        <div className="text-black text-4xl font-semibold mx-4 my-5 ">
+          Join the Challenge to becoming the next big star!
+        </div>
 
         <img src={logo1} alt="welcome" className=" cursor-pointer" />
       </div>

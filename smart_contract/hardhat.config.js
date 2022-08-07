@@ -9,7 +9,7 @@ module.exports = {
     },
    
     mumbai: {
-      url: process.env.MUMBAI_RPC_URL, 
+      url: process.env.ALCHEMY_RPC, 
       accounts: [process.env.PRIVATE_KEY],
     },
 

@@ -28,9 +28,10 @@ export default function Talents() {
 
   async function loadTalent() {
     /* create a generic provider and query for Talents */
-    const provider = new ethers.providers.JsonRpcProvider();
+    const provider = new ethers.providers.JsonRpcProvider("https://matic-mumbai.chainstacklabs.com");
     const contract = new ethers.Contract(talentMusicaAddress, Talent.abi, provider);
     const data = await contract.fetchMarketItems();
+
     console.log("Talent data fetched from contract", data);
     /*
     *  map over items returned from smart contract and format
@@ -38,19 +39,22 @@ export default function Talents() {
     */
     // eslint-disable-next-line arrow-parens
     const items = await Promise.all(data.map(async i => {
+      // const data2 = await contract.NFTView(i.tokenId);
       const tokenUri = await contract.tokenURI(i.tokenId);
       console.log("token Uri is ", tokenUri);
       const httpUri = getIPFSGatewayURL(tokenUri);
       console.log("Http Uri is ", httpUri);
       const meta = await axios.get(httpUri);
-      // const price = ethers.utils.formatUnits(i.price.toString(), "ether");
+      // const data2 = await contract.NFTView(i.tokenId);
+      const views = i.tokenId.toString();
 
       const item = {
-
         tokenId: i.tokenId.toNumber(),
         image: getIPFSGatewayURL(meta.data.image),
         name: meta.data.name,
         description: meta.data.description,
+        contact: meta.data.properties.contact,
+        views,
       };
       console.log("item returned is ", item);
       return item;
@@ -68,7 +72,6 @@ export default function Talents() {
     const contract = new ethers.Contract(talentMusicaAddress, Talent.abi, signer);
 
     /* user will be prompted to pay the asking proces to complete the transaction */
-    // const price = ethers.utils.parseUnits(nft.price.toString(), "ether");
     const transaction = await contract.createMarketSale(nft.tokenId);
     await transaction.wait();
     console.log("Talent transaction completed, Talent should show in UI ");
@@ -92,6 +95,10 @@ export default function Talents() {
           {nfts.map((nft, i) => (
 
             <div key={i} className="border shadow rounded-xl overflow-hidden border-2 border-gray-500 ">
+              <div className="p-1">
+                <p style={{ height: "14px" }} className="text-lg text-red-700 font-semibold">Twitter Handle: {nft.contact}</p>
+
+              </div>
               <iframe
                 title="Talent"
                 frameBorder="0"
@@ -107,12 +114,12 @@ export default function Talents() {
                   <p className="text-gray-700">Title of Song: {nft.description}</p>
                 </div>
                 <div style={{ height: "40px", overflow: "hidden" }}>
-                  <p className="text-red-700">Number of views: {nft.description}</p>
+                  <p className="text-red-700 font-bold">Number of views: {nft.views}</p>
                 </div>
               </div>
 
               <div className="p-2 bg-black">
-                <button type="button" className="mt-4 w-full bg-blue-500 text-white font-bold py-2 px-12 rounded" onClick={() => view(nft)}>View Music</button>
+                <button type="button" className="mt-4 w-full bg-blue-500 text-white font-bold py-2 px-12 rounded" onClick={() => view(nft)}>Watch Music</button>
               </div>
             </div>
           ))}

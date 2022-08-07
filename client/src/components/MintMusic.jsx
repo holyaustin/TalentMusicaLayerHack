@@ -27,7 +27,7 @@ const MintMusic = () => {
   const [metaDataURL, setMetaDataURl] = useState();
   const [txURL, setTxURL] = useState();
   const [txStatus, setTxStatus] = useState();
-  const [formInput, updateFormInput] = useState({ name: "", description: "" });
+  const [formInput, updateFormInput] = useState({ name: "", description: "", contact: "" });
 
   const handleFileUpload = (event) => {
     console.log("file for upload selected...");
@@ -39,7 +39,7 @@ const MintMusic = () => {
   };
 
   const uploadNFTContent = async (inputFile) => {
-    const { name, description } = formInput;
+    const { name, description, contact } = formInput;
     if (!name || !description || !inputFile) return;
     const nftStorage = new NFTStorage({ token: APIKEY, });
     try {
@@ -49,6 +49,9 @@ const MintMusic = () => {
         name,
         description,
         image: inputFile,
+        properties: {
+          contact, 
+        }
       });
       setMetaDataURl(metaData.url);
       console.log("metadata is: ", { metaData });
@@ -150,6 +153,11 @@ const MintMusic = () => {
             placeholder="Title of Song"
             className="mt-5 border rounded p-4 text-xl"
             onChange={(e) => updateFormInput({ ...formInput, description: e.target.value })}
+          />
+          <input
+            placeholder="Twitter Handle"
+            className="mt-5 border rounded p-4 text-xl"
+            onChange={(e) => updateFormInput({ ...formInput, contact: e.target.value })}
           />
           <br />
 

@@ -7,4 +7,3 @@ export { default as Footer } from "./Footer";
 export { default as MintMusic } from "./MintMusic";
 export { default as Services } from "./Services";
 export { default as Talents } from "./Talents";
-
