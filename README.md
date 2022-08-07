@@ -1,7 +1,7 @@
 # Talent Musica 
 
 ## Introduction
-This project is an EthGlobal Metabolism Hackathon sponsored by Zora. The projects seeks to create an onchain music Dapp where young mujsic talents can upload theior creation and mint it to the marketplace as Video NFTs. If users like the music, such artistes can be contatcted on their twitter handle.
+This project is an EthGlobal Metabolism Hackathon sponsored by Zora. The project seeks to create an on-chain music Dapp where young music talents can upload their creation and mint it to the marketplace as Video NFTs. If users like the music, such artists can be contacted on their Twitter handles.
 
 ## Web 3.0 technologies Used
 
@@ -12,7 +12,9 @@ Backend: Solidity, Node.js
 ## Demo / Live Links
 Live Dapp - https://talentmusica.vercel.app/
 
-Youtube Url: 
+Youtube Url: https://youtu.be/pporUqaGBts
+
+Livepeer stream id: https://livepeer.studio/dashboard/streams/1424bb39-66b6-4bfa-8343-1abb5519c91a
 
 Deployed to Polygon Mumbai: 0xE7F42d0cA01B777EbD745297562255F9A6e84Fb7
 

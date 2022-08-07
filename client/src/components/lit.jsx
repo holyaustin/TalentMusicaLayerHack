@@ -1,7 +1,7 @@
 import * as LitJsSdk from "lit-js-sdk";
 
 const client = new LitJsSdk.LitNodeClient();
-const chain = "localhost";
+const chain = "mumbai";
 
 //* Access control for a wallet with > 0.00001 ETH
 const accessControlConditionsETHBalance = [
