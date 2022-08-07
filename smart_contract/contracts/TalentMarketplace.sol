@@ -15,6 +15,7 @@ contract Talent is ERC721URIStorage {
     address payable owner;
 
     mapping(uint256 => MarketItem) private idToMarketItem;
+    mapping(uint256 => Watched) private idToViewItem;
 
     struct MarketItem {
       uint256 tokenId;
@@ -23,11 +24,25 @@ contract Talent is ERC721URIStorage {
       bool contacted;
     }
 
+    struct Watched {
+      uint256 tokenId;
+      address payable usersAdd;
+      address payable ownerAdd;
+      bool haveWatched;
+    }
+
     event MarketItemCreated (
       uint256 indexed tokenId,
       address artiste,
       address owner,
       bool contacted
+    );
+
+    event ViewCreated (
+      uint256 indexed tokenId,
+      address usersAdd,
+      address ownerAdd,
+      bool haveWatched
     );
 
     constructor() ERC721("Talent Musica", "tmus") {
@@ -45,6 +60,7 @@ contract Talent is ERC721URIStorage {
       return newTokenId;
     }
 
+// Create Item for the marketplace
     function createMarketItem(
       uint256 tokenId
     ) private {
@@ -81,6 +97,69 @@ contract Talent is ERC721URIStorage {
         }
       }
       return items;
+    }
+
+    /* Returns only items that a user has contacted   */
+    function fetchNFT(uint256 _tokenId) public view returns (MarketItem[] memory) {
+      uint totalItemCount = _tokenIds.current();
+      uint itemCount = 0;
+      uint currentIndex = 0;
+
+    // uint256 tId = _tokenId
+      for (uint i = 0; i < totalItemCount; i++) {
+        if (idToMarketItem[i + 1].tokenId == _tokenId) {
+          itemCount += 1;
+        }
+      }
+
+      MarketItem[] memory items = new MarketItem[](itemCount);
+      for (uint i = 0; i < totalItemCount; i++) {
+        if (idToMarketItem[i + 1].tokenId == _tokenId) {
+          uint currentId = i + 1;
+          MarketItem storage currentItem = idToMarketItem[currentId];
+          items[currentIndex] = currentItem;
+          currentIndex += 1;
+        }
+      }
+      //createView(_tokenId);
+      return items;
+    }
+  // get total view
+  function getTotalView() public view returns (uint256) {
+    uint256 totalViews = _itemView.current();
+    return totalViews;
+  }
+
+    /* Returns only NFT Views   */
+    function NFTView(uint256 tokenId) public view returns (uint256) {
+      uint totalItemCount = _itemView.current();
+      uint itemCount = 0;
+
+      for (uint i = 0; i < totalItemCount; i++) {
+        if (idToViewItem[i + 1].tokenId == tokenId) {
+          itemCount += 1;
+        }
+      }
+      return itemCount;
+    }
+
+
+  // create views
+      function createView(uint256 tokenId ) private {
+        _itemView.increment();
+      idToViewItem[tokenId] =  Watched(
+        tokenId,
+        payable(msg.sender),
+        payable(address(this)),
+        true
+      );
+
+      emit ViewCreated(
+        tokenId,
+        msg.sender,
+        address(this),
+        true
+      );
     }
 
     /* Returns only items that a user has contacted   */
