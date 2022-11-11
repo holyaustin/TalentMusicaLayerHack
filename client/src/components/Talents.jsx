@@ -23,7 +23,7 @@ export default function Talents() {
     return ipfsGateWayURL;
   };
 
-  const rpcUrl = "https://data-seed-prebsc-1-s1.binance.org:8545";
+  const rpcUrl = "https://data-seed-prebsc-1-s3.binance.org:8545";
   // const rpcUrl = "http://localhost:8545";
 
   async function loadTalent() {

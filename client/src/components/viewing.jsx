@@ -6,7 +6,6 @@ import React, { useEffect, useState } from "react";
 import { ethers } from "ethers";
 import axios from "axios";
 import { useNavigate, useLocation } from "react-router-dom";
-// import CovalentMyNfts from "./covalent-get-nfts/CovalentGetNfts";
 
 import Talent from "../utils/Talent.json";
 import { talentMusicaAddress } from "../../config";
@@ -52,7 +51,7 @@ export default function ViewFile() {
   async function Claim() {
     navigate("/dashboard");
   }
-  const rpcUrl = "https://data-seed-prebsc-1-s1.binance.org:8545";
+  const rpcUrl = "https://data-seed-prebsc-1-s3.binance.org:8545";
   // const rpcUrl = "localhost";
 
   async function loadMusic() {
@@ -78,14 +77,6 @@ export default function ViewFile() {
         name: meta.data.name,
         description: meta.data.description,
         contact: meta.data.properties.contact,
-        // address: meta.data.properties.address,
-        // make: meta.data.properties.make,
-        // model: meta.data.properties.model,
-        // price: meta.data.properties.price,
-        // year: meta.data.properties.year,
-        // colour: meta.data.properties.colour,
-        // image2: getIPFSGatewayURL(meta.data.properties.image2),
-        // image3: getIPFSGatewayURL(meta.data.properties.image3),
 
       };
       console.log("item returned is ", item);
@@ -176,9 +167,7 @@ export default function ViewFile() {
 
         </div>
       </div>
-      <div>
-        {/** <CovalentMyNfts />  */}
-      </div>
+
     </>
 
   );
