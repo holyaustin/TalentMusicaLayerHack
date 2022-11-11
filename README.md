@@ -3,6 +3,8 @@
 ## Introduction
 This project is a Hackathon project sponsored by Moralis and Google cloud - Defining DeFi. The project seeks to create an on-chain music Dapp where young music talents can upload their creation and mint it to the talent marketplace as Video NFTs. If users like the music, such artists can be contacted on their Twitter handles. Producers and Managers who looks the work of any upcoming artiste / talent can contact the talent and sign a contract with him/ her.
 
+![Talent Musica](https://bafybeibuagnt726vfndkbbwwiingiy45ivmmspoh4omq5gvut5tuyteyki.ipfs.nftstorage.link/)
+
 ## Web 3.0 technologies Used
 
 Frontend: vite + react.js, postcss, tailwindcss, 
