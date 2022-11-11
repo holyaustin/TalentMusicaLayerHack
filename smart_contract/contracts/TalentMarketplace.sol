@@ -26,9 +26,9 @@ contract Talent is ERC721URIStorage {
 
     struct Watched {
       uint256 tokenId;
-      address payable usersAdd;
-      address payable ownerAdd;
-      bool haveWatched;
+      address usersAdd;
+      address ownerAdd;
+      //bool haveWatched;
     }
 
     event MarketItemCreated (
@@ -41,8 +41,8 @@ contract Talent is ERC721URIStorage {
     event ViewCreated (
       uint256 indexed tokenId,
       address usersAdd,
-      address ownerAdd,
-      bool haveWatched
+      address ownerAdd
+      //bool haveWatched
     );
 
     constructor() ERC721("Talent Musica", "tmus") {
@@ -86,9 +86,7 @@ contract Talent is ERC721URIStorage {
       uint256 tokenId
       ) public payable {
       idToMarketItem[tokenId].contacted = true;
- 
-      createView(tokenId);
-
+       
     }
 
     /* Returns all music talent */
@@ -109,8 +107,27 @@ contract Talent is ERC721URIStorage {
       return items;
     }
 
+        /* Returns all views by users */
+    function fetchAllViews() public view returns (Watched[] memory) {
+      uint itemCount = _itemView.current();
+      uint unsoldItemCount = _itemView.current();
+      uint currentIndex = 0;
+
+      Watched[] memory items = new Watched[](unsoldItemCount);
+      for (uint i = 0; i < itemCount; i++) {
+        if (idToViewItem[i + 1].ownerAdd == address(this)) {
+          uint currentId = i + 1;
+         Watched storage currentItem = idToViewItem[currentId];
+          items[currentIndex] = currentItem;
+          currentIndex += 1;
+        }
+      }
+      return items;
+    }
+
     /* Returns only items that a user has contacted   */
     function fetchNFT(uint256 _tokenId) public view returns (MarketItem[] memory) {
+      
       uint totalItemCount = _tokenIds.current();
       uint itemCount = 0;
       uint currentIndex = 0;
@@ -133,14 +150,15 @@ contract Talent is ERC721URIStorage {
       //createView(_tokenId);
       return items;
     }
+
   // get total view
-  function getTotalView() public view returns (uint256) {
+  function getTotalViews() public view returns (uint256) {
     uint256 totalViews = _itemView.current();
     return totalViews;
   }
 
     /* Returns only NFT Views   */
-    function NFTView(uint256 tokenId) public view returns (uint256) {
+    function getMusicViews(uint256 tokenId) public view returns (uint256) {
       uint totalItemCount = _itemView.current();
       uint itemCount = 0;
 
@@ -149,27 +167,51 @@ contract Talent is ERC721URIStorage {
           itemCount += 1;
         }
       }
-      return itemCount;
+    
+      return itemCount;      
     }
 
-
-  // create views
-      function createView(uint256 tokenId ) private {
-        _itemView.increment();
+  // create how many views a music get
+      function createView(uint256 tokenId ) public {
+        
       idToViewItem[tokenId] =  Watched(
         tokenId,
-        payable(msg.sender),
-        payable(address(this)),
-        true
+        msg.sender,
+        address(this)
       );
 
       emit ViewCreated(
         tokenId,
         msg.sender,
-        address(this),
-        true
+       address(this)
       );
+      _itemView.increment();
     }
+
+   /* Returns only one items by token id   */
+    function fetchOneNFT(uint256 _tokenId) public view returns (MarketItem[] memory) {
+      uint totalItemCount = _tokenIds.current();
+      uint itemCount = 0;
+      uint currentIndex = 0;
+
+      for (uint i = 0; i < totalItemCount; i++) {
+        if (idToMarketItem[i + 1].tokenId == _tokenId) {
+          itemCount += 1;
+        }
+      }
+
+      MarketItem[] memory items = new MarketItem[](itemCount);
+      for (uint i = 0; i < totalItemCount; i++) {
+        if (idToMarketItem[i + 1].tokenId == _tokenId) {
+          uint currentId = i + 1;
+          MarketItem storage currentItem = idToMarketItem[currentId];
+          items[currentIndex] = currentItem;
+          currentIndex += 1;
+        }
+      }
+      return items;
+    }
+
 
     /* Returns only items that a user has contacted   */
     function fetchMyNFTs() public view returns (MarketItem[] memory) {

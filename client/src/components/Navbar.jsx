@@ -23,6 +23,8 @@ const Navbar = () => {
         <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
         <Link to="/explore">Explore</Link>
         <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+        <Link to="/mynfts">My-NFTs</Link>
+        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
         <Link to="/live">Go-Live</Link>
         <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
 

@@ -3,14 +3,14 @@
 import { ethers } from "ethers";
 import { useEffect, useState } from "react";
 import axios from "axios";
-// import { useNavigate } from "react-router-dom";
-import Web3Modal from "web3modal";
+import { useNavigate } from "react-router-dom";
+// import Web3Modal from "web3modal";
 
 import Talent from "../utils/Talent.json";
 import { talentMusicaAddress } from "../../config";
 
 export default function Talents() {
-//  const navigate = useNavigate();
+  const navigate = useNavigate();
   const [nfts, setNfts] = useState([]);
   const [loadingState, setLoadingState] = useState("not-loaded");
   useEffect(() => {
@@ -23,12 +23,12 @@ export default function Talents() {
     return ipfsGateWayURL;
   };
 
-  // const rpcUrl = "https://matic-mumbai.chainstacklabs.com";
+  const rpcUrl = "https://data-seed-prebsc-1-s1.binance.org:8545";
   // const rpcUrl = "http://localhost:8545";
 
   async function loadTalent() {
     /* create a generic provider and query for Talents */
-    const provider = new ethers.providers.JsonRpcProvider("https://matic-mumbai.chainstacklabs.com");
+    const provider = new ethers.providers.JsonRpcProvider(rpcUrl);
     const contract = new ethers.Contract(talentMusicaAddress, Talent.abi, provider);
     const data = await contract.fetchMarketItems();
 
@@ -62,16 +62,27 @@ export default function Talents() {
     setNfts(items);
     setLoadingState("loaded");
   }
+
   async function view(nft) {
-    /* needs the user to sign the transaction, so will use Web3Provider and sign it */
+    console.log("item id clicked is", nft.tokenId);
+    const vid = nft.tokenId;
+
+    navigate("/watch", {
+      state: {
+        id: vid
+      }
+    });
+    console.log("Prop result without {} is ", { vid });
+
+    /* needs the user to sign the transaction, so will use Web3Provider and sign it
     console.log("item id clicked is", nft.tokenId);
     const web3Modal = new Web3Modal();
     const connection = await web3Modal.connect();
     const provider = new ethers.providers.Web3Provider(connection);
     const signer = provider.getSigner();
     const contract = new ethers.Contract(talentMusicaAddress, Talent.abi, signer);
-
-    /* user will be prompted to pay the asking proces to complete the transaction */
+*/
+    /* user will be prompted to pay the asking proces to complete the transaction
     const transaction = await contract.createMarketSale(nft.tokenId);
     await transaction.wait();
     console.log("Talent transaction completed, Talent should show in UI ");
@@ -79,6 +90,7 @@ export default function Talents() {
     console.log("token id is ", token);
     loadTalent();
     // navigate("/view", { state: token });
+    */
   }
   if (loadingState === "loaded" && !nfts.length) {
     return (
@@ -94,15 +106,13 @@ export default function Talents() {
         <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-5 pt-4">
           {nfts.map((nft, i) => (
 
-            <div key={i} className="border shadow rounded-xl overflow-hidden border-2 border-gray-500 ">
+            <div key={i} className="shadow rounded-xl overflow-hidden border-2 border-gray-500 ">
               <div className="p-1">
                 <p style={{ height: "14px" }} className="text-lg text-red-700 font-semibold">Twitter Handle: {nft.contact}</p>
 
               </div>
               <iframe
                 title="Talent"
-                frameBorder="0"
-                scrolling="no"
                 height="400px"
                 width="100%"
                 src={`${nft.image}#toolbar=0`}

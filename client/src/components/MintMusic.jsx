@@ -2,7 +2,7 @@
 /* eslint-disable no-use-before-define */
 /* eslint-disable no-shadow */
 import "./init";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { NFTStorage } from "nft.storage";
 import { useNavigate } from "react-router-dom";
 import { ethers } from "ethers";
@@ -50,17 +50,11 @@ const MintMusic = () => {
         description,
         image: inputFile,
         properties: {
-          contact, 
+          contact,
         }
       });
       setMetaDataURl(metaData.url);
       console.log("metadata is: ", { metaData });
-
-      // const encrypted = await lit.encryptString(metaData.url);
-      // setEncryptedUrlArr((prev) => [...prev, encrypted.encryptedFile]);
-      // console.log("EncryptedUrlArr is: ", { encryptedUrlArr });
-      // setEncryptedKeyArr((prev) => [...prev, encrypted.encryptedSymmetricKey]);
-      // console.log("EncryptedKeyAr is: ", { encryptedKeyArr });
 
       return metaData;
     } catch (error) {
@@ -69,21 +63,9 @@ const MintMusic = () => {
     }
   };
 
-  // function decrypt() {
-  // Promise.all(encryptedUrlArr.map((url, idx) => lit.decryptString(url, encryptedKeyArr[idx]))).then((values) => {
-  //      setDecryptedFileArr(values.map((v) => v.decryptedFile));
-  //  });
-  // }
-
-  // useEffect(() => {
-  //  if (encryptedUrlArr.length !== 0) {
-  //    decrypt(encryptedUrlArr, encryptedKeyArr);
-  //  }
-  // });
-
   const sendTxToBlockchain = async (metaData) => {
     try {
-      setTxStatus("connecting to Polygon Mumbai Blockchain.");
+      setTxStatus("connecting to BSC Blockchain.");
       const web3Modal = new Web3Modal();
       const connection = await web3Modal.connect();
       const provider = new ethers.providers.Web3Provider(connection);
@@ -98,7 +80,7 @@ const MintMusic = () => {
       await mintNFTTx.wait();
       return mintNFTTx;
     } catch (error) {
-      setErrorMessage("Failed to send tx to Polygon Mumbai.");
+      setErrorMessage("Failed to send tx to BSC.");
       console.log(error);
     }
   };
@@ -109,7 +91,7 @@ const MintMusic = () => {
     console.log("image ipfs path is", imgViewString);
     setImageView(imgViewString);
     setMetaDataURl(getIPFSGatewayURL(metaData.url));
-    setTxURL(`https://mumbai.polygonscan.com/tx/${mintNFTTx.hash}`);
+    setTxURL(`https://https://testnet.bscscan.com/tx/${mintNFTTx.hash}`);
     setTxStatus("Talent registration was successfully!");
     console.log("Preview details completed");
   };
@@ -119,7 +101,7 @@ const MintMusic = () => {
     // 1. upload NFT content via NFT.storage
     const metaData = await uploadNFTContent(uploadedFile);
 
-    // 2. Mint a NFT token on Polygon
+    // 2. Mint a NFT token on BSC
     const mintNFTTx = await sendTxToBlockchain(metaData);
 
     // 3. preview the minted nft
