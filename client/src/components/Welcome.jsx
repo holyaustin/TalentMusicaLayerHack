@@ -5,7 +5,6 @@ import injectedModule from "@web3-onboard/injected-wallets";
 import Onboard from "@web3-onboard/core";
 import logo1 from "../assets/bg.png";
 import logo2 from "../assets/headphone.jpeg";
-import MoralisLogin from "./moralisLogin.tsx";
 
 const coinbaseWalletSdk = coinbaseWalletModule();
 const walletConnect = walletConnectModule();
@@ -13,24 +12,16 @@ const injected = injectedModule();
 
 const modules = [coinbaseWalletSdk, walletConnect, injected];
 
-const MAINNET_RPC_URL = "https://bsc-dataseed.binance.org/";
-const TESTNET_RPC_URL = "https://data-seed-prebsc-1-s3.binance.org:8545/";
+const TESTNET_RPC_URL = "https://devnet-rpc.altlayer.io/";
 
 const onboard = Onboard({
   wallets: modules, // created in previous step
   chains: [
     {
-      id: "0x56", // chain ID must be in hexadecimel
-      token: "BNB",
+      id: "0x9990",
+      token: "ALT",
       namespace: "evm",
-      label: "BSC Mainnet",
-      rpcUrl: MAINNET_RPC_URL
-    },
-    {
-      id: "0x97",
-      token: "BNB",
-      namespace: "evm",
-      label: "BSC Testnet",
+      label: "ALTLAYER Devnet",
       rpcUrl: TESTNET_RPC_URL
     },
   ],
@@ -75,12 +66,10 @@ const Welcome = () => {
           </div>
 
           <br />
-          <MoralisLogin />
-          {/** {!currentAccount && ( )}
+
           <button
             type="button"
-            // onClick={connectWallet2}
-            onClick={MoralisLogin}
+            onClick={connectWallet2}
             className="flex flex-row justify-center items-center my-5 bg-red-700 p-3 rounded-full cursor-pointer hover:bg-yellow-500 hover:text-white"
           >
 
@@ -92,7 +81,7 @@ const Welcome = () => {
           <div className="text-black text-2xl font-semibold mx-4 my-5 ">
             <div>Connected Wallet Address: <br /> {account}</div>
           </div>
- */}
+
         </div>
       </div>
       <div className="sm:flex-[1.2] lg:flex-[1.9]flex-initial justify-left items-center">

@@ -8,6 +8,4 @@ export { default as MintMusic } from "./MintMusic";
 export { default as Services } from "./Services";
 export { default as Talents } from "./Talents";
 export { default as ViewFile } from "./viewing";
-export { default as MoralisLogin } from "./moralisLogin.tsx";
-export { default as CovalentGetNfts } from "./covalent-get-nfts/CovalentGetNfts";
 
